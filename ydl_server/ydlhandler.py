@@ -58,7 +58,7 @@ def reload_youtube_dl():
             importlib.reload(sys.modules[module])
 
 def update():
-    if app_config['YDL_PYTHONPATH']:
+    if app_config.get('YDL_PYTHONPATH'):
         command = ["pip", "install", "--no-cache-dir", "-t", app_config['YDL_PYTHONPATH'], "--upgrade", "youtube-dlc"]
     else:
         command = ["pip", "install", "--no-cache-dir", "--upgrade", "youtube-dlc"]
