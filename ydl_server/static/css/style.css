@@ -22,6 +22,16 @@ div.input-group>select.custom-select {
 
 .nav-item .badge {
   margin-right: 2px;
+  font-size: 100% !important;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.navbar-nav .nav-link {
+  padding-right: .5rem;
+  padding-left: .5rem;
 }
 
 .footer{
