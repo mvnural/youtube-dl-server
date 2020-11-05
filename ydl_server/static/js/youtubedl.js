@@ -181,7 +181,7 @@ function get_finished_files(){
         finished_files += "<div class=\"collapse\" id=\"dir" + key + "\"><table class=\"col-md-16 table table-stripped table-md table-dark text-left\">";
         $.each(file.children, function(child_key, child_file) {
           finished_files += "<tr><td><a class=\"btn btn-sm btn-secondary\" href=\"api/finished/" + encodeURIComponent(file.name + "/" + child_file.name)
-            + "\" download>"+ download_svg +"</a>&nbsp;&nbsp;<a href=\"api/finished/" 
+            + "\" download>"+ download_svg +"</a>&nbsp;&nbsp;<a href=\"api/finished/"
             + encodeURIComponent(file.name + "/" + child_file.name)
             + "\">" + child_file.name + "</a></td><td>" + (new Date(child_file.modified)).toISOString() + "</td></tr>";
         });
@@ -189,7 +189,7 @@ function get_finished_files(){
       }
       else {
         finished_files += "<td><a class=\"btn btn-sm btn-secondary\" href=\"api/finished/" + encodeURIComponent(file.name)
-            + "\" download>"+ download_svg +"</a>&nbsp;&nbsp;<a href=\"api/finished/" 
+            + "\" download>"+ download_svg +"</a>&nbsp;&nbsp;<a href=\"api/finished/"
             + encodeURIComponent(file.name)
             + "\">" + file.name + "</a> </td>";
       }
