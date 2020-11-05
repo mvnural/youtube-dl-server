@@ -16,3 +16,7 @@ app_defaults = {
         'ignoreerrors': True
         },
 }
+
+import os
+from collections import ChainMap
+app_config = ChainMap(os.environ, app_defaults)

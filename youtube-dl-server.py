@@ -1,7 +1,5 @@
 from __future__ import unicode_literals
 import json
-import os
-from collections import ChainMap
 from itertools import chain
 from operator import itemgetter
 from queue import Queue
@@ -10,7 +8,7 @@ from threading import Thread
 from pathlib import Path
 from ydl_server.logdb import JobsDB, Job, Actions, JobType
 from ydl_server import jobshandler, ydlhandler
-from ydl_server.config import app_defaults
+from ydl_server.config import app_config
 
 app = Bottle()
 
@@ -125,11 +123,10 @@ jobshandler.put((Actions.INSERT, job))
 
 ydlhandler.resume_pending()
 
-app_vars = ChainMap(os.environ, app_defaults)
 
-app.run(host=app_vars['YDL_SERVER_HOST'],
-        port=app_vars['YDL_SERVER_PORT'],
-        debug=app_vars['YDL_DEBUG'])
+app.run(host=app_config['YDL_SERVER_HOST'],
+        port=app_config['YDL_SERVER_PORT'],
+        debug=app_config['YDL_DEBUG'])
 ydlhandler.finish()
 jobshandler.finish()
 ydlhandler.join()

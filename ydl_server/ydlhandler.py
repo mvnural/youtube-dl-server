@@ -1,4 +1,3 @@
-import os
 from queue import Queue
 from threading import Thread
 import subprocess
@@ -12,7 +11,7 @@ import sys
 
 from ydl_server.logdb import JobsDB, Job, Actions, JobType
 from ydl_server import jobshandler
-from ydl_server.config import app_defaults
+from ydl_server.config import app_config
 
 queue = Queue()
 thread = None
@@ -59,8 +58,8 @@ def reload_youtube_dl():
             importlib.reload(sys.modules[module])
 
 def update():
-    if os.environ.get('YDL_PYTHONPATH'):
-        command = ["pip", "install", "--no-cache-dir", "-t", os.environ.get('YDL_PYTHONPATH'), "--upgrade", "youtube-dlc"]
+    if app_config['YDL_PYTHONPATH']:
+        command = ["pip", "install", "--no-cache-dir", "-t", app_config['YDL_PYTHONPATH'], "--upgrade", "youtube-dlc"]
     else:
         command = ["pip", "install", "--no-cache-dir", "--upgrade", "youtube-dlc"]
     proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -84,7 +83,7 @@ def get_ydl_options(request_options):
     elif requested_format in ['mp4', 'flv', 'webm', 'ogg', 'mkv', 'avi']:
         request_vars['YDL_RECODE_VIDEO_FORMAT'] = requested_format
 
-    ydl_vars = ChainMap(request_vars, os.environ, app_defaults)
+    ydl_vars = ChainMap(request_vars, app_config)
 
     postprocessors = []
 
@@ -138,7 +137,7 @@ def fetch_metadata(url):
 def download(url, request_options, output, job_id):
     with youtube_dlc.YoutubeDL(get_ydl_options(request_options)) as ydl:
         ydl.params['extract_flat'] = 'in_playlist'
-        ydl_opts = ChainMap(os.environ, app_defaults)
+        ydl_opts = app_config
         info = ydl.extract_info(url, download=False)
         if 'title' in info and info['title']:
             jobshandler.put((Actions.SET_NAME, (job_id, info['title'])))
