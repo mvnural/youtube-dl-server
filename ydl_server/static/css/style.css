@@ -20,6 +20,10 @@ div.input-group>select.custom-select {
   flex: 0.1 1 100px;
 }
 
+.table {
+  margin-top: 1rem;
+}
+
 .nav-item .badge {
   margin-right: 2px;
   font-size: 100% !important;
