@@ -31,7 +31,7 @@ def front_finished():
 
 @app.route('/api/finished')
 def api_list_finished():
-    root_dir = Path(app_vars['YDL_OUTPUT_TEMPLATE']).parent
+    root_dir = Path(app_config['YDL_OUTPUT_TEMPLATE']).parent
     matches = root_dir.glob('*')
 
     files = [{'name': f1.name,
@@ -50,7 +50,7 @@ def api_list_finished():
 
 @app.route('/api/finished/:filename#.*#')
 def api_serve_finished_file(filename):
-    root_dir = Path(app_vars['YDL_OUTPUT_TEMPLATE']).parent
+    root_dir = Path(app_config['YDL_OUTPUT_TEMPLATE']).parent
     return static_file(filename, root=root_dir)
 
 @app.route('/static/:filename#.*#')
